@@ -424,8 +424,13 @@ const HeroSection = () => {
               </h1>
 
               <p className="text-zinc-400 text-sm md:text-base leading-relaxed mb-6 max-w-sm">
-                Merging complex technical solutions with educational goals.
-                Specialized in Full-stack development & IoT.
+                High-achieving Informatics Education undergraduate at
+                Universitas Negeri Medan with a strong focus on IoT and Software
+                Engineering. Successfully developed a PIMNAS-qualified wearable
+                device utilizing Python and ESP32. Skilled in merging complex
+                technical solutions with educational goals. Seeking to leverage
+                expertise in Full-stack development and hardware integration in
+                a challenging internship or junior developer role
               </p>
 
               {/* NEW: Mini Stats/Highlights Row */}
