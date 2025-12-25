@@ -23,9 +23,69 @@ import {
   Check,
   Copy,
   Instagram,
+  Languages, // Icon for language switcher
 } from "lucide-react";
 
 // --- Types & Interfaces ---
+type Lang = "en" | "id";
+
+interface Translations {
+  nav: {
+    work: string;
+    experience: string;
+    contact: string;
+  };
+  hero: {
+    status: string;
+    role: string;
+    desc: string;
+    resume: string;
+    contact: string;
+    pimnas: string;
+    awardee: string;
+  };
+  techStack: {
+    title: string;
+    web: string;
+    iot: string;
+  };
+  experience: {
+    title: string;
+  };
+  achievements: {
+    title: string;
+    pimnas_title: string;
+    pimnas_desc: string;
+    pkm_title: string;
+    pkm_desc: string;
+    student_awardee_title: string;
+    student_awardee_desc: string;
+  };
+  education: {
+    title: string;
+    uni: string;
+    degree: string;
+    desc: string;
+  };
+  projects: {
+    title: string;
+    subtitle: string;
+  };
+  // NEW: Translations for Modal
+  modal: {
+    overview: string;
+    features: string;
+    tech: string;
+  };
+  contact: {
+    title: string;
+    desc: string;
+    dropLine: string;
+    response: string;
+    copied: string;
+  };
+}
+
 interface Project {
   id: number;
   title: string;
@@ -38,16 +98,114 @@ interface Project {
   image: string;
 }
 
-// --- Enhanced Data ---
-const projects: Project[] = [
+// --- Content Data (Multi-Language) ---
+
+const getTranslations = (lang: Lang): Translations => {
+  return {
+    nav: {
+      work: lang === "en" ? "Work" : "Proyek",
+      experience: lang === "en" ? "Experience" : "Pengalaman",
+      contact: lang === "en" ? "Contact" : "Kontak",
+    },
+    hero: {
+      status: lang === "en" ? "Open to Opportunities" : "Terbuka untuk Peluang",
+      role: "Software & IoT Engineer", // Universal
+      desc:
+        lang === "en"
+          ? "High-achieving Informatics Education undergraduate at Universitas Negeri Medan with a strong focus on IoT and Software Engineering. Successfully developed a PIMNAS-qualified wearable device utilizing Python and ESP32."
+          : "Mahasiswa Pendidikan Informatika berprestasi di Universitas Negeri Medan dengan fokus kuat pada IoT dan Rekayasa Perangkat Lunak. Berhasil mengembangkan perangkat wearable yang lolos PIMNAS menggunakan Python dan ESP32.",
+      resume: lang === "en" ? "View Resume" : "Lihat Resume",
+      contact: lang === "en" ? "Contact Me" : "Hubungi Saya",
+      pimnas: lang === "en" ? "PIMNAS 38 Finalist" : "Finalis PIMNAS 38",
+      awardee: lang === "en" ? "Student Grand Awardee" : "Penerima Grand Award",
+    },
+    techStack: {
+      title: lang === "en" ? "Core Stack" : "Teknologi Utama",
+      web:
+        lang === "en" ? "Web and Mobile Ecosystem" : "Ekosistem Web & Mobile",
+      iot: lang === "en" ? "Hardware & IoT" : "Hardware & IoT",
+    },
+    experience: {
+      title: lang === "en" ? "Experience" : "Pengalaman",
+    },
+    achievements: {
+      title: lang === "en" ? "Achievements" : "Pencapaian",
+      pimnas_title: lang === "en" ? "PIMNAS 38 Finalist" : "Finalis PIMNAS 38",
+      pimnas_desc:
+        lang === "en"
+          ? "National Scientific Week 2025"
+          : "Pekan Ilmiah Mahasiswa Nasional 2025",
+      pkm_title:
+        lang === "en"
+          ? "PKM Funding Grantee"
+          : "Penerima Hibah Pekan Kreativitas Mahasiswa",
+      pkm_desc:
+        lang === "en"
+          ? "Kemendikbudristek 2024 & 2025"
+          : "Kemendikbudristek 2024 & 2025",
+      student_awardee_title:
+        lang === "en"
+          ? "Student Grant Awardee"
+          : "Penerima Hibah Penelitian Student Grant",
+      student_awardee_desc:
+        lang === "en"
+          ? "University Medan Estate 2025"
+          : "Univeristas Negeri Medan 2025",
+    },
+    education: {
+      title: lang === "en" ? "Education" : "Pendidikan",
+      uni: "Universitas Negeri Medan",
+      degree: lang === "en" ? "B.Ed in Informatics" : "S1 Pendidikan TIK",
+      desc:
+        lang === "en"
+          ? "Unique blend of technical engineering and pedagogical skills. Strong in technical documentation and instruction."
+          : "Perpaduan unik antara teknik rekayasa perangkat lunak dan keterampilan pedagogis. Kuat dalam dokumentasi teknis dan instruksi.",
+    },
+    projects: {
+      title: lang === "en" ? "Featured Projects" : "Proyek Unggulan",
+      subtitle:
+        lang === "en"
+          ? "Click on a card to view technical details."
+          : "Klik kartu untuk melihat detail teknis.",
+    },
+    modal: {
+      overview: lang === "en" ? "Overview" : "Ringkasan",
+      features: lang === "en" ? "Key Features" : "Fitur Utama",
+      tech: lang === "en" ? "Tech Stack" : "Teknologi",
+    },
+    contact: {
+      title: lang === "en" ? "Ready to Collaborate?" : "Siap Berkolaborasi?",
+      desc:
+        lang === "en"
+          ? "Whether it's an intricate IoT system or a scalable web platform, I'm ready to bring technical expertise to your team."
+          : "Baik itu sistem IoT yang rumit atau platform web yang skalabel, saya siap membawa keahlian teknis ke tim Anda.",
+      dropLine: lang === "en" ? "Drop me a line at" : "Kirim pesan ke",
+      response:
+        lang === "en" ? "Responds within 24 hours" : "Membalas dalam 24 jam",
+      copied:
+        lang === "en"
+          ? "Email copied to clipboard!"
+          : "Email berhasil disalin!",
+    },
+  };
+};
+
+const getProjects = (lang: Lang): Project[] => [
   {
     id: 1,
     title: "Wearable Teach Assistance",
     shortDesc:
-      "IoT device using EEG sensors to analyze student engagement. PIMNAS Finalist.",
+      lang === "en"
+        ? "IoT device using EEG sensors to analyze student engagement. PIMNAS Finalist."
+        : "Perangkat IoT menggunakan sensor EEG untuk menganalisis keterlibatan siswa. Finalis PIMNAS.",
     fullDesc:
-      "A breakthrough research project funded by Kemendikbudristek. We developed a wearable device that monitors brainwave activity (EEG) to detect concentration levels in Down Syndrome students during learning sessions. The data is processed in real-time to help teachers adjust their teaching methods dynamically.",
-    role: "Lead Researcher & IoT Engineer",
+      lang === "en"
+        ? "A breakthrough research project funded by Kemendikbudristek. We developed a wearable device that monitors brainwave activity (EEG) to detect concentration levels in Down Syndrome students during learning sessions. The data is processed in real-time to help teachers adjust their teaching methods dynamically."
+        : "Proyek penelitian terobosan yang didanai oleh Kemendikbudristek. Kami mengembangkan perangkat wearable yang memantau aktivitas gelombang otak (EEG) untuk mendeteksi tingkat konsentrasi pada siswa Down Syndrome selama sesi pembelajaran. Data diproses secara real-time untuk membantu guru menyesuaikan metode pengajaran mereka secara dinamis.",
+    role:
+      lang === "en"
+        ? "Lead Researcher & IoT Engineer"
+        : "Peneliti Utama & Engineer IoT",
     tech: [
       "Python (Signal Processing)",
       "ESP32",
@@ -55,12 +213,20 @@ const projects: Project[] = [
       "MQTT",
       "WebSockets",
     ],
-    features: [
-      "Real-time Attention Level Graphing",
-      "Wireless Data Transmission via Wifi",
-      "Python-based Noise Filtering Algorithm",
-      "Compact 3D Printed Enclosure",
-    ],
+    features:
+      lang === "en"
+        ? [
+            "Real-time Attention Level Graphing",
+            "Wireless Data Transmission via Wifi",
+            "Python-based Noise Filtering Algorithm",
+            "Compact 3D Printed Enclosure",
+          ]
+        : [
+            "Grafik Tingkat Perhatian Real-time",
+            "Transmisi Data Nirkabel via Wifi",
+            "Algoritma Penyaring Noise berbasis Python",
+            "Casing Cetak 3D yang Ringkas",
+          ],
     color: "from-indigo-500/20 to-blue-500/20",
     image: "/WereableTeachAssist.jpeg",
   },
@@ -68,9 +234,13 @@ const projects: Project[] = [
     id: 2,
     title: "Faculty Info System",
     shortDesc:
-      "Comprehensive academic management system built with the TALL Stack.",
+      lang === "en"
+        ? "Comprehensive academic management system built with the TALL Stack."
+        : "Sistem manajemen akademik komprehensif yang dibangun dengan TALL Stack.",
     fullDesc:
-      "An enterprise-grade information system designed for the Faculty of Engineering at UNIMED. It solves the problem of fragmented academic data by centralizing student records, lecturer schedules, and administrative documents into a single, reactive SPA (Single Page Application).",
+      lang === "en"
+        ? "An enterprise-grade information system designed for the Faculty of Engineering at UNIMED. It solves the problem of fragmented academic data by centralizing student records, lecturer schedules, and administrative documents into a single, reactive SPA (Single Page Application)."
+        : "Sistem informasi tingkat perusahaan yang dirancang untuk Fakultas Teknik UNIMED. Sistem ini memecahkan masalah data akademik yang terfragmentasi dengan memusatkan catatan siswa, jadwal dosen, dan dokumen administrasi menjadi satu SPA (Single Page Application) yang reaktif.",
     role: "Fullstack Web Developer",
     tech: [
       "Laravel 12",
@@ -79,12 +249,20 @@ const projects: Project[] = [
       "Alpine.js",
       "FilamentPHP",
     ],
-    features: [
-      "Dynamic SPA Experience without React/Vue overhead",
-      "Role-based Access Control (RBAC)",
-      "Automated Report Generation",
-      "Optimized Database Queries for Large Datasets",
-    ],
+    features:
+      lang === "en"
+        ? [
+            "Dynamic SPA Experience without React/Vue overhead",
+            "Role-based Access Control (RBAC)",
+            "Automated Report Generation",
+            "Optimized Database Queries for Large Datasets",
+          ]
+        : [
+            "Pengalaman SPA Dinamis tanpa overhead React/Vue",
+            "Kontrol Akses Berbasis Peran (RBAC)",
+            "Pembuatan Laporan Otomatis",
+            "Query Database Teroptimasi untuk Data Besar",
+          ],
     color: "from-cyan-500/20 to-teal-500/20",
     image: "/Fakultas.jpeg",
   },
@@ -92,36 +270,62 @@ const projects: Project[] = [
     id: 3,
     title: "Smart Parking System",
     shortDesc:
-      "Automated parking ecosystem integrating mobile apps with ESP8266.",
+      lang === "en"
+        ? "Automated parking ecosystem integrating mobile apps with ESP8266."
+        : "Ekosistem parkir otomatis yang mengintegrasikan aplikasi seluler dengan ESP8266.",
     fullDesc:
-      "A smart city solution to reduce parking congestion. Users scan a QR code via the Android app to enter/exit. The app communicates with a Firebase Realtime Database, which triggers the ESP8266 controller to operate the gate servo motor instantly.",
-    role: "Mobile & IoT Developer",
+      lang === "en"
+        ? "A smart city solution to reduce parking congestion. Users scan a QR code via the Android app to enter/exit. The app communicates with a Firebase Realtime Database, which triggers the ESP8266 controller to operate the gate servo motor instantly."
+        : "Solusi smart city untuk mengurangi kemacetan parkir. Pengguna memindai kode QR melalui aplikasi Android untuk masuk/keluar. Aplikasi berkomunikasi dengan Firebase Realtime Database, yang memicu kontroler ESP8266 untuk mengoperasikan motor servo gerbang secara instan.",
+    role: lang === "en" ? "Mobile & IoT Developer" : "Pengembang Mobile & IoT",
     tech: ["Kotlin (Native Android)", "ESP8266", "Firebase Realtime DB", "C++"],
-    features: [
-      "Sub-second Latency Gate Control",
-      "QR Code Authentication",
-      "Real-time Parking Slot Availability",
-      "Digital Transaction History",
-    ],
+    features:
+      lang === "en"
+        ? [
+            "Sub-second Latency Gate Control",
+            "QR Code Authentication",
+            "Real-time Parking Slot Availability",
+            "Digital Transaction History",
+          ]
+        : [
+            "Kontrol Gerbang dengan Latensi Sub-detik",
+            "Otentikasi Kode QR",
+            "Ketersediaan Slot Parkir Real-time",
+            "Riwayat Transaksi Digital",
+          ],
     color: "from-orange-500/20 to-red-500/20",
     image: "ParkirSystem.jpeg",
   },
-
   {
     id: 4,
     title: "Real-time Attendance App",
     shortDesc:
-      "Native Android application for secure student attendance via QR code scanning.",
+      lang === "en"
+        ? "Native Android application for secure student attendance via QR code scanning."
+        : "Aplikasi Android Native untuk absensi siswa yang aman melalui pemindaian kode QR.",
     fullDesc:
-      "Developed a real-time attendance mobile application as part of an academic research project. Integrated Google Firebase for instant data syncing and secure user authentication.",
-    role: "Research Assistant - Mobile App Developer",
+      lang === "en"
+        ? "Developed a real-time attendance mobile application as part of an academic research project. Integrated Google Firebase for instant data syncing and secure user authentication."
+        : "Mengembangkan aplikasi mobile absensi real-time sebagai bagian dari proyek penelitian akademik. Mengintegrasikan Google Firebase untuk sinkronisasi data instan dan otentikasi pengguna yang aman.",
+    role:
+      lang === "en"
+        ? "Research Assistant - Mobile App Developer"
+        : "Asisten Peneliti - Pengembang Aplikasi Mobile",
     tech: ["Kotlin (Native Android)", "Google Firebase", "Barcode Scanner API"],
-    features: [
-      "Real-time Database Sync",
-      "QR/Barcode Scanning",
-      "Secure User Authentication",
-      "Automated Logging",
-    ],
+    features:
+      lang === "en"
+        ? [
+            "Real-time Database Sync",
+            "QR/Barcode Scanning",
+            "Secure User Authentication",
+            "Automated Logging",
+          ]
+        : [
+            "Sinkronisasi Database Real-time",
+            "Pemindaian QR/Barcode",
+            "Otentikasi Pengguna Aman",
+            "Pencatatan Otomatis",
+          ],
     color: "from-green-500/20 to-emerald-500/20",
     image: "absensi.jpeg",
   },
@@ -129,58 +333,97 @@ const projects: Project[] = [
     id: 5,
     title: "E-Library Management System",
     shortDesc:
-      "Web-based digital library administration system for SMK Swasta Teladan Sumut 2.",
+      lang === "en"
+        ? "Web-based digital library administration system for SMK Swasta Teladan Sumut 2."
+        : "Sistem administrasi perpustakaan digital berbasis web untuk SMK Swasta Teladan Sumut 2.",
     fullDesc:
-      "Collaborated with a lecturer to develop a comprehensive digital library system. The platform digitizes book inventory, member management, and loan tracking to modernize school data administration.",
-    role: "Research Assistant - Web Developer",
+      lang === "en"
+        ? "Collaborated with a lecturer to develop a comprehensive digital library system. The platform digitizes book inventory, member management, and loan tracking to modernize school data administration."
+        : "Bekerja sama dengan dosen untuk mengembangkan sistem perpustakaan digital yang komprehensif. Platform ini mendigitalkan inventaris buku, manajemen anggota, dan pelacakan peminjaman untuk memodernisasi administrasi data sekolah.",
+    role:
+      lang === "en"
+        ? "Research Assistant - Web Developer"
+        : "Asisten Peneliti - Pengembang Web",
     tech: ["MySQL", "Bootstrap", "PHP"],
-    features: [
-      "Book Inventory Management",
-      "Digital Loan Tracking",
-      "Student Membership System",
-      "Accessibility Optimization",
-    ],
+    features:
+      lang === "en"
+        ? [
+            "Book Inventory Management",
+            "Digital Loan Tracking",
+            "Student Membership System",
+            "Accessibility Optimization",
+          ]
+        : [
+            "Manajemen Inventaris Buku",
+            "Pelacakan Peminjaman Digital",
+            "Sistem Keanggotaan Siswa",
+            "Optimasi Aksesibilitas",
+          ],
     color: "from-blue-500/20 to-cyan-500/20",
     image: "/perpustakaan.jpeg",
   },
 ];
 
-const experience = [
+const getExperience = (lang: Lang) => [
   {
-    role: "Lead Researcher & IoT Dev",
+    role:
+      lang === "en"
+        ? "Lead Researcher & IoT Dev"
+        : "Peneliti Utama & Pengembang IoT",
     company: "Kemendikbudristek (PKM-KI)",
     period: "Apr 2025 - Dec 2025",
-    desc: "Led a team to develop an EEG-based IoT device. Qualified for PIMNAS 38 (National Finals).",
+    desc:
+      lang === "en"
+        ? "Led a team to develop an EEG-based IoT device. Qualified for PIMNAS 38 (National Finals)."
+        : "Memimpin tim untuk mengembangkan perangkat IoT berbasis EEG. Lolos kualifikasi PIMNAS 38 (Final Nasional).",
   },
   {
-    role: "Technical Developer",
+    role: lang === "en" ? "Technical Developer" : "Technical Developer",
     company: "Kemendikbudristek (PKM-PI)",
     period: "Jan 2024 - Aug 2025",
-    desc: "Engineered a smart parking system integrating Android apps with ESP8266 microcontrollers.",
+    desc:
+      lang === "en"
+        ? "Engineered a smart parking system integrating Android apps with ESP8266 microcontrollers."
+        : "Merekayasa sistem parkir pintar yang mengintegrasikan aplikasi Android dengan mikrokontroler ESP8266.",
   },
   {
     role: "Web Developer",
     company: "Faculty of Engineering UNIMED",
     period: "Jul 2025 - Dec 2025",
-    desc: "Built a Faculty Information System using the TALL Stack (Tailwind, Alpine, Laravel, Livewire).",
+    desc:
+      lang === "en"
+        ? "Built a Faculty Information System using the TALL Stack (Tailwind, Alpine, Laravel, Livewire)."
+        : "Membangun Sistem Informasi Fakultas menggunakan TALL Stack (Tailwind, Alpine, Laravel, Livewire).",
   },
   {
-    role: "Mobile Application Developer",
+    role:
+      lang === "en"
+        ? "Mobile Application Developer"
+        : "Pengembang Aplikasi Mobile",
     company: "Universitas Negeri Medan",
     period: "Jul 2025 - Okt 2025",
-    desc: "Developed a real-time attendance mobile application using Kotlin (Native Android) and Firebase.",
+    desc:
+      lang === "en"
+        ? "Developed a real-time attendance mobile application using Kotlin (Native Android) and Firebase."
+        : "Mengembangkan aplikasi mobile absensi real-time menggunakan Kotlin (Android Native) dan Firebase.",
   },
   {
-    role: "Research Assistant - Web Developer",
+    role:
+      lang === "en"
+        ? "Research Assistant - Web Developer"
+        : "Asisten Peneliti - Pengembang Web",
     company: "Universitas Negeri Medan",
     period: "Jul 2025 - Sep 2025",
-    desc: 'Collaborated with a lecturer to develop "E-Library", a web-based library management system implemented at SMK Swasta Teladan Sumatera Utara 2.',
+    desc:
+      lang === "en"
+        ? 'Collaborated with a lecturer to develop "E-Library", a web-based library management system implemented at SMK Swasta Teladan Sumatera Utara 2.'
+        : 'Bekerja sama dengan dosen untuk mengembangkan "E-Library", sistem manajemen perpustakaan berbasis web yang diterapkan di SMK Swasta Teladan Sumatera Utara 2.',
   },
 ];
 
 // --- Helper Components ---
 
-const CopyToast = ({ show }: { show: boolean }) => (
+const CopyToast = ({ show, message }: { show: boolean; message: string }) => (
   <AnimatePresence>
     {show && (
       <motion.div
@@ -192,7 +435,7 @@ const CopyToast = ({ show }: { show: boolean }) => (
         <div className="bg-emerald-500 rounded-full p-1">
           <Check size={12} className="text-white" />
         </div>
-        Email copied to clipboard!
+        {message}
       </motion.div>
     )}
   </AnimatePresence>
@@ -295,12 +538,33 @@ const SocialLink = ({
   </a>
 );
 
+// New: Language Switcher Component
+const LanguageSwitcher = ({
+  lang,
+  setLang,
+}: {
+  lang: Lang;
+  setLang: (l: Lang) => void;
+}) => (
+  <button
+    onClick={() => setLang(lang === "en" ? "id" : "en")}
+    className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-400 text-xs font-medium hover:text-white hover:border-zinc-600 transition-all"
+  >
+    <Languages size={14} />
+    <span className={lang === "id" ? "text-white font-bold" : ""}>ID</span>
+    <span className="opacity-50">|</span>
+    <span className={lang === "en" ? "text-white font-bold" : ""}>EN</span>
+  </button>
+);
+
 const ProjectModal = ({
   project,
   onClose,
+  t,
 }: {
   project: Project;
   onClose: () => void;
+  t: Translations;
 }) => {
   if (!project) return null;
 
@@ -346,7 +610,7 @@ const ProjectModal = ({
         <div className="p-8 space-y-8">
           <div>
             <h3 className="text-lg font-semibold text-zinc-100 mb-3 flex items-center gap-2">
-              <Code size={20} className="text-indigo-400" /> Overview
+              <Code size={20} className="text-indigo-400" /> {t.modal.overview}
             </h3>
             <p className="text-zinc-400 leading-relaxed">{project.fullDesc}</p>
           </div>
@@ -354,7 +618,8 @@ const ProjectModal = ({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
               <h3 className="text-lg font-semibold text-zinc-100 mb-3 flex items-center gap-2">
-                <Cpu size={20} className="text-emerald-400" /> Key Features
+                <Cpu size={20} className="text-emerald-400" />{" "}
+                {t.modal.features}
               </h3>
               <ul className="space-y-2">
                 {project.features.map((feat, i) => (
@@ -370,7 +635,7 @@ const ProjectModal = ({
             </div>
             <div>
               <h3 className="text-lg font-semibold text-zinc-100 mb-3 flex items-center gap-2">
-                <Layers size={20} className="text-amber-400" /> Tech Stack
+                <Layers size={20} className="text-amber-400" /> {t.modal.tech}
               </h3>
               <div className="flex flex-wrap gap-2">
                 {project.tech.map((t, i) => (
@@ -392,7 +657,7 @@ const ProjectModal = ({
 
 // --- Sections ---
 
-const HeroSection = () => {
+const HeroSection = ({ t }: { t: Translations }) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
       {/* Main Intro Card */}
@@ -413,35 +678,29 @@ const HeroSection = () => {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                 </span>
-                Open to Opportunities
+                {t.hero.status}
               </div>
 
               <h1 className="text-4xl md:text-5xl lg:text-5xl font-bold tracking-tight text-zinc-100 mb-4">
                 Raffi Hidayat <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400 text-3xl md:text-4xl lg:text-5xl">
-                  Software & IoT Engineer
+                  {t.hero.role}
                 </span>
               </h1>
 
               <p className="text-zinc-400 text-sm md:text-base leading-relaxed mb-6 max-w-sm">
-                High-achieving Informatics Education undergraduate at
-                Universitas Negeri Medan with a strong focus on IoT and Software
-                Engineering. Successfully developed a PIMNAS-qualified wearable
-                device utilizing Python and ESP32. Skilled in merging complex
-                technical solutions with educational goals. Seeking to leverage
-                expertise in Full-stack development and hardware integration in
-                a challenging internship or junior developer role
+                {t.hero.desc}
               </p>
 
               {/* NEW: Mini Stats/Highlights Row */}
               <div className="flex flex-wrap gap-3 mb-8">
                 <div className="flex items-center gap-2 text-xs font-medium text-zinc-300 bg-zinc-800/60 px-3 py-1.5 rounded-lg border border-zinc-700/50 hover:border-amber-500/30 transition-colors">
                   <Trophy size={14} className="text-amber-400" />
-                  <span>PIMNAS 38 Finalist</span>
+                  <span>{t.hero.pimnas}</span>
                 </div>
                 <div className="flex items-center gap-2 text-xs font-medium text-zinc-300 bg-zinc-800/60 px-3 py-1.5 rounded-lg border border-zinc-700/50 hover:border-indigo-500/30 transition-colors">
                   <Trophy size={14} className="text-amber-400" />
-                  <span>Student Grand Awardee</span>
+                  <span>{t.hero.awardee}</span>
                 </div>
               </div>
 
@@ -452,7 +711,7 @@ const HeroSection = () => {
                   download="Raffi_Hidayat_Resume.pdf"
                   className="px-5 py-2.5 rounded-full bg-zinc-100 text-zinc-900 font-semibold text-sm hover:bg-white transition-colors flex items-center gap-2 group cursor-pointer"
                 >
-                  View Resume
+                  {t.hero.resume}
                   <ArrowUpRight
                     size={16}
                     className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
@@ -462,7 +721,7 @@ const HeroSection = () => {
                   href="#contact"
                   className="px-5 py-2.5 rounded-full bg-zinc-800 text-zinc-300 font-medium text-sm hover:bg-zinc-700 transition-colors"
                 >
-                  Contact Me
+                  {t.hero.contact}
                 </a>
               </div>
             </motion.div>
@@ -477,6 +736,11 @@ const HeroSection = () => {
               src="/RaffiHidayat.JPG"
               alt="Raffi Hidayat Profile"
               className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              onError={(e) => {
+                // Fallback jika gambar lokal belum ada
+                e.currentTarget.src =
+                  "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1000&auto=format&fit=crop";
+              }}
             />
           </div>
         </div>
@@ -489,7 +753,7 @@ const HeroSection = () => {
           <div className="absolute top-0 right-0 p-16 bg-zinc-800/50 rounded-full blur-2xl -translate-y-1/2 translate-x-1/3"></div>
           <h3 className="text-zinc-100 font-semibold mb-4 flex items-center gap-2 relative z-10">
             <Terminal size={18} className="text-zinc-400" />
-            Core Stack
+            {t.techStack.title}
           </h3>
           <div className="grid grid-cols-4 gap-3 relative z-10">
             {[Layout, Server, Database, Wifi, Globe, Smartphone, Cpu, Code].map(
@@ -539,13 +803,13 @@ const HeroSection = () => {
   );
 };
 
-const TechArsenal = () => (
+const TechArsenal = ({ t }: { t: Translations }) => (
   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
     <Card className="relative overflow-hidden">
       <div className="absolute top-0 right-0 p-24 bg-cyan-500/10 blur-[60px] rounded-full pointer-events-none"></div>
       <div className="relative z-10">
         <h3 className="text-lg font-bold text-zinc-100 mb-4 flex items-center gap-2">
-          <Globe size={20} className="text-cyan-400" /> Web and Mobile Ecosystem
+          <Globe size={20} className="text-cyan-400" /> {t.techStack.web}
         </h3>
         <div className="flex flex-wrap gap-2">
           {[
@@ -567,7 +831,7 @@ const TechArsenal = () => (
       <div className="absolute top-0 right-0 p-24 bg-orange-500/10 blur-[60px] rounded-full pointer-events-none"></div>
       <div className="relative z-10">
         <h3 className="text-lg font-bold text-zinc-100 mb-4 flex items-center gap-2">
-          <Wifi size={20} className="text-orange-400" /> Hardware & IoT
+          <Wifi size={20} className="text-orange-400" /> {t.techStack.iot}
         </h3>
         <div className="flex flex-wrap gap-2">
           {[
@@ -591,8 +855,13 @@ const TechArsenal = () => (
 // --- Main App Component ---
 
 const App = () => {
+  const [lang, setLang] = useState<Lang>("en");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [showCopyToast, setShowCopyToast] = useState(false);
+
+  const t = getTranslations(lang);
+  const projectsData = getProjects(lang);
+  const experienceData = getExperience(lang);
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText("rafi50631@gmail.com");
@@ -623,31 +892,35 @@ const App = () => {
               Raffi Hidayat
             </span>
           </div>
-          <div className="hidden md:flex items-center gap-6 text-sm font-medium text-zinc-400">
-            <a
-              href="#projects"
-              className="hover:text-zinc-100 transition-colors"
-            >
-              Work
-            </a>
-            <a
-              href="#experience"
-              className="hover:text-zinc-100 transition-colors"
-            >
-              Experience
-            </a>
-            <a
-              href="#contact"
-              className="hover:text-zinc-100 transition-colors"
-            >
-              Contact
-            </a>
+          <div className="flex items-center gap-6">
+            <div className="hidden md:flex items-center gap-6 text-sm font-medium text-zinc-400">
+              <a
+                href="#projects"
+                className="hover:text-zinc-100 transition-colors"
+              >
+                {t.nav.work}
+              </a>
+              <a
+                href="#experience"
+                className="hover:text-zinc-100 transition-colors"
+              >
+                {t.nav.experience}
+              </a>
+              <a
+                href="#contact"
+                className="hover:text-zinc-100 transition-colors"
+              >
+                {t.nav.contact}
+              </a>
+            </div>
+            {/* Language Switcher */}
+            <LanguageSwitcher lang={lang} setLang={setLang} />
           </div>
         </nav>
 
         <main>
-          <HeroSection />
-          <TechArsenal />
+          <HeroSection t={t} />
+          <TechArsenal t={t} />
 
           {/* Bento Grid for Experience, Education & Awards */}
           <section
@@ -657,10 +930,11 @@ const App = () => {
             {/* Experience Timeline (Span 2) */}
             <Card className="md:col-span-2">
               <h3 className="text-lg font-bold text-zinc-100 mb-6 flex items-center gap-2">
-                <Briefcase size={20} className="text-indigo-400" /> Experience
+                <Briefcase size={20} className="text-indigo-400" />{" "}
+                {t.experience.title}
               </h3>
               <div className="space-y-8 pl-2">
-                {experience.map((exp, i) => (
+                {experienceData.map((exp, i) => (
                   <div
                     key={i}
                     className="relative pl-8 border-l-2 border-zinc-800 last:border-none"
@@ -693,31 +967,32 @@ const App = () => {
               <Card className="relative overflow-hidden bg-gradient-to-br from-amber-500/10 to-yellow-500/5 border-amber-500/20">
                 <div className="relative z-10">
                   <h3 className="text-lg font-bold text-amber-100 mb-4 flex items-center gap-2">
-                    <Trophy size={20} className="text-amber-400" /> Achievements
+                    <Trophy size={20} className="text-amber-400" />{" "}
+                    {t.achievements.title}
                   </h3>
                   <ul className="space-y-3">
                     <li className="text-sm text-zinc-300 border-b border-amber-500/10 pb-2">
                       <strong className="text-amber-200 block">
-                        PIMNAS 38 Finalist
+                        {t.achievements.pimnas_title}
                       </strong>
                       <span className="text-xs opacity-70">
-                        National Scientific Week 2025
+                        {t.achievements.pimnas_desc}
                       </span>
                     </li>
-                    <li className="text-sm text-zinc-300">
+                    <li className="text-sm text-zinc-300 border-b border-amber-500/10 pb-2">
                       <strong className="text-amber-200 block">
-                        PKM Funding Grantee
+                        {t.achievements.pkm_title}
                       </strong>
                       <span className="text-xs opacity-70">
-                        Kemendikbudristek '24 & '25
+                        {t.achievements.pkm_desc}
                       </span>
                     </li>
-                    <li className="text-sm text-zinc-300">
+                    <li className="text-sm text-zinc-300 border-b border-amber-500/10 pb-2">
                       <strong className="text-amber-200 block">
-                        Student Grand Awardee
+                        {t.achievements.student_awardee_title}
                       </strong>
                       <span className="text-xs opacity-70">
-                        University Medan Estate '25
+                        {t.achievements.student_awardee_desc}
                       </span>
                     </li>
                   </ul>
@@ -727,16 +1002,14 @@ const App = () => {
               {/* Education Card */}
               <Card>
                 <h3 className="text-lg font-bold text-zinc-100 mb-4 flex items-center gap-2">
-                  <BookOpen size={20} className="text-emerald-400" /> Education
+                  <BookOpen size={20} className="text-emerald-400" />{" "}
+                  {t.education.title}
                 </h3>
                 <div className="text-sm text-zinc-300">
-                  <p className="font-semibold text-white">
-                    Universitas Negeri Medan
-                  </p>
-                  <p className="opacity-70 mb-2">B.Ed in Informatics</p>
+                  <p className="font-semibold text-white">{t.education.uni}</p>
+                  <p className="opacity-70 mb-2">{t.education.degree}</p>
                   <p className="text-zinc-500 text-xs leading-relaxed">
-                    Unique blend of technical engineering and pedagogical
-                    skills. Strong in technical documentation and instruction.
+                    {t.education.desc}
                   </p>
                 </div>
               </Card>
@@ -748,16 +1021,16 @@ const App = () => {
             <div className="flex justify-between items-end mb-8">
               <div>
                 <h2 className="text-2xl font-bold text-zinc-100">
-                  Featured Projects
+                  {t.projects.title}
                 </h2>
                 <p className="text-zinc-500 text-sm mt-1">
-                  Click on a card to view technical details.
+                  {t.projects.subtitle}
                 </p>
               </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {projects.map((project) => (
+              {projectsData.map((project) => (
                 <Card
                   key={project.id}
                   onClick={() => setSelectedProject(project)}
@@ -806,12 +1079,9 @@ const App = () => {
           >
             <Card className="flex flex-col justify-center min-h-[200px] bg-gradient-to-br from-indigo-500/10 to-purple-500/5 border-indigo-500/20">
               <h2 className="text-2xl font-bold text-zinc-100 mb-2">
-                Ready to Collaborate?
+                {t.contact.title}
               </h2>
-              <p className="text-zinc-400 text-sm mb-6">
-                Whether it's an intricate IoT system or a scalable web platform,
-                I'm ready to bring technical expertise to your team.
-              </p>
+              <p className="text-zinc-400 text-sm mb-6">{t.contact.desc}</p>
               <div className="flex gap-4">
                 <SocialLink
                   href="https://github.com/RaffiHDMedia"
@@ -832,7 +1102,9 @@ const App = () => {
             </Card>
             <Card className="flex flex-col justify-center min-h-[200px] border-dashed">
               <div className="text-center group">
-                <p className="text-zinc-500 text-sm mb-2">Drop me a line at</p>
+                <p className="text-zinc-500 text-sm mb-2">
+                  {t.contact.dropLine}
+                </p>
 
                 <button
                   onClick={handleCopyEmail}
@@ -846,7 +1118,7 @@ const App = () => {
                 </button>
 
                 <p className="text-zinc-600 text-xs mt-4">
-                  Responds within 24 hours
+                  {t.contact.response}
                 </p>
               </div>
             </Card>
@@ -865,10 +1137,11 @@ const App = () => {
           <ProjectModal
             project={selectedProject}
             onClose={() => setSelectedProject(null)}
+            t={t}
           />
         )}
       </AnimatePresence>
-      <CopyToast show={showCopyToast} />
+      <CopyToast show={showCopyToast} message={t.contact.copied} />
     </div>
   );
 };
